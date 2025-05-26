@@ -35,15 +35,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Format card number as user types
     const cardNumberInput = document.getElementById('cardNumber');
     cardNumberInput.addEventListener('input', (e) => {
-        // Remove any non-digits and existing spaces
-        let value = e.target.value.replace(/\D/g, '');
+        const selectionStart = e.target.selectionStart;
+        let value = e.target.value.replace(/\s/g, '').replace(/\D/g, '');
         
-        // Limit to 16 digits
-        if (value.length > 16) {
-            value = value.slice(0, 16);
-        }
+        // Strictly limit to 16 digits
+        value = value.substring(0, 16);
         
-        // Format with spaces after every 4 digits
+        // Format with spaces
         let formattedValue = '';
         for (let i = 0; i < value.length; i++) {
             if (i > 0 && i % 4 === 0) {
@@ -52,15 +50,35 @@ document.addEventListener('DOMContentLoaded', () => {
             formattedValue += value[i];
         }
         
-        // Update the input value
+        // Calculate new cursor position
+        const addedSpaces = Math.floor(selectionStart / 4);
+        const newPosition = Math.min(
+            formattedValue.length,
+            selectionStart + (selectionStart > 0 && selectionStart % 4 === 0 ? 1 : 0)
+        );
+        
+        // Update input value
         e.target.value = formattedValue;
+        
+        // Adjust cursor position if we're not at the end and we're inserting text
+        if (e.inputType === 'insertText' && newPosition < formattedValue.length) {
+            e.target.setSelectionRange(newPosition, newPosition);
+        }
         
         // Update visual feedback
         const errorElement = document.getElementById('cardNumberError');
-        if (value.length > 0 && value.length < 16) {
+        if (value.length === 0) {
+            errorElement.textContent = 'Card number is required';
+            errorElement.classList.add('visible');
+            e.target.classList.add('error-field');
+        } else if (value.length < 16) {
             errorElement.textContent = `${16 - value.length} digits remaining`;
+            errorElement.classList.add('visible');
+            e.target.classList.add('error-field');
         } else {
             errorElement.textContent = '';
+            errorElement.classList.remove('visible');
+            e.target.classList.remove('error-field');
         }
     });
     
@@ -77,48 +95,127 @@ document.addEventListener('DOMContentLoaded', () => {
     // Format expiry date as user types
     const expiryDateInput = document.getElementById('expiryDate');
     expiryDateInput.addEventListener('input', (e) => {
+        const selectionStart = e.target.selectionStart;
         let value = e.target.value.replace(/\D/g, '');
-        if (value.length > 4) value = value.substr(0, 4);
         
+        // Limit to 4 digits total
+        if (value.length > 4) {
+            value = value.slice(0, 4);
+        }
+        
+        // Format MM/YY
         if (value.length >= 2) {
-            const month = parseInt(value.substr(0, 2));
-            if (month > 12) value = '12' + value.substr(2);
-            value = value.substr(0, 2) + '/' + value.substr(2);
+            let month = value.slice(0, 2);
+            let year = value.slice(2);
+            
+            // Validate month (01-12)
+            if (parseInt(month) > 12) {
+                month = '12';
+            } else if (parseInt(month) === 0) {
+                month = '01';
+            } else if (month.length === 1) {
+                month = '0' + month;
+            }
+            
+            // Validate year (can't be less than current year)
+            if (year.length > 0) {
+                const currentYear = new Date().getFullYear() % 100; // Get last 2 digits
+                year = year.slice(0, 2); // Ensure only 2 digits for year
+                const yearNum = parseInt(year);
+                if (yearNum < currentYear) {
+                    year = currentYear.toString().padStart(2, '0');
+                }
+            }
+            
+            // Add slash after month
+            value = month + (year.length > 0 ? '/' + year : '');
         }
         
         e.target.value = value;
+        
+        // Move cursor after slash when typing month
+        const newPosition = selectionStart + (
+            selectionStart === 2 && value.includes('/') && value.length > 2 ? 1 : 0
+        );
+        e.target.setSelectionRange(newPosition, newPosition);
+    });
+
+    // Enable/disable payment button based on form validity
+    function updatePaymentButton() {
+        const makePaymentBtn = document.getElementById('makePaymentBtn');
+        makePaymentBtn.disabled = !validatePaymentForm();
+    }
+
+    // Add validation check on input to all form fields
+    ['cardNumber', 'cardHolder', 'expiryDate', 'cvv'].forEach(fieldId => {
+        document.getElementById(fieldId).addEventListener('input', updatePaymentButton);
     });
 
     // Payment form validation and submission
-    const paymentForm = document.getElementById('paymentForm');
-    paymentForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        if (!validatePaymentForm()) return;
-
-        // Simulate payment processing
-        const paymentBtn = document.getElementById('makePaymentBtn');
-        paymentBtn.disabled = true;
-        paymentBtn.textContent = 'Processing...';
+    const makePaymentBtn = document.getElementById('makePaymentBtn');
+    makePaymentBtn.addEventListener('click', async () => {
+        if (!validatePaymentForm()) {
+            return;
+        }
+        
+        makePaymentBtn.disabled = true;
+        makePaymentBtn.textContent = 'Processing Payment...';
+        
+        // Get all form values
+        const cardNumber = document.getElementById('cardNumber').value;
+        const cardHolder = document.getElementById('cardHolder').value;
+        const expiryDate = document.getElementById('expiryDate').value;
+        const cvv = document.getElementById('cvv').value;
+        
+        // Additional validation
+        if (!cardNumber || !cardHolder || !expiryDate || !cvv) {
+            makePaymentBtn.disabled = false;
+            makePaymentBtn.textContent = 'Make Payment';
+            return;
+        }
 
         try {
             // Simulate API call delay
             await new Promise(resolve => setTimeout(resolve, 2000));
 
-            // Update booking status
+            // Create payment record
+            const payment = {
+                cardNumber: cardNumber.replace(/\s/g, '').slice(-4), // Only store last 4 digits
+                cardHolder: cardHolder,
+                expiryDate: expiryDate,
+                amount: bookingDetails.amount,
+                currency: '₹', // Indian Rupees
+                date: new Date().toISOString(),
+                bookingId: bookingDetails.bookingId
+            };
+
+            // Update booking details
             bookingDetails.status = 'Payment Completed';
-            bookingDetails.paymentTime = new Date().toISOString();
+            bookingDetails.paymentTime = payment.date;
+            bookingDetails.paymentDetails = payment;
+            bookingDetails.trackingStatus = 'Booked';
 
             // Store the updated booking details
             let allBookings = JSON.parse(sessionStorage.getItem('allBookings') || '[]');
-            allBookings.push(bookingDetails);
+            const existingIndex = allBookings.findIndex(b => b.bookingId === bookingDetails.bookingId);
+            if (existingIndex >= 0) {
+                allBookings[existingIndex] = bookingDetails;
+            } else {
+                allBookings.push(bookingDetails);
+            }
             sessionStorage.setItem('allBookings', JSON.stringify(allBookings));
             
-            // Clear current booking
+            // Store payment details for invoice
+            sessionStorage.setItem('lastPayment', JSON.stringify(payment));
+            
+            // Clear current booking but keep a reference for the invoice
+            sessionStorage.setItem('lastBooking', JSON.stringify(bookingDetails));
             sessionStorage.removeItem('currentBooking');
-
-            // Redirect to invoice
-            window.location.href = `invoice.html?bookingId=${bookingDetails.bookingId}`;
+            
+            console.log('Payment processed, redirecting to invoice');
+            window.location.href = 'invoice.html';
         } catch (error) {
+            console.error('Payment error:', error);
             alert('Payment failed. Please try again.');
             paymentBtn.disabled = false;
             paymentBtn.textContent = 'Make Payment';
@@ -129,11 +226,13 @@ document.addEventListener('DOMContentLoaded', () => {
         let isValid = true;
         const fields = {
             cardNumber: {
-                pattern: /^[0-9]{16}$/,
+                pattern: /^(\d{4}\s){3}\d{4}$|^\d{16}$/,
                 message: 'Please enter a valid 16-digit card number',
                 required: 'Card number is required',
                 validate: (value) => {
-                    return value.replace(/\s/g, '').length === 16;
+                    const digitsOnly = value.replace(/\s/g, '');
+                    return digitsOnly.length === 16 && /^\d+$/.test(digitsOnly) && 
+                           value.match(/(\d{4}\s){3}\d{4}/); // Ensure proper spacing
                 }
             },
             cardHolder: {
@@ -163,12 +262,11 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         Object.entries(fields).forEach(([fieldId, validation]) => {
-            const field = document.getElementById(fieldId);
-            const errorElement = document.getElementById(fieldId + 'Error');
-            const value = field.value.replace(/\s/g, '');
-
             const input = document.getElementById(fieldId);
-            if (!value) {
+            const errorElement = document.getElementById(fieldId + 'Error');
+            const value = input.value;
+
+            if (!value.trim()) {
                 errorElement.textContent = validation.required;
                 errorElement.classList.add('visible');
                 input.classList.add('error-field');

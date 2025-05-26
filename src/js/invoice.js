@@ -7,15 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Display username
     document.getElementById('username').textContent = sessionStorage.getItem('userId');
 
-    // Get booking ID from URL parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    const bookingId = urlParams.get('bookingId');
+    // Get booking and payment details from session storage
+    const bookingDetails = JSON.parse(sessionStorage.getItem('lastBooking'));
+    const paymentDetails = JSON.parse(sessionStorage.getItem('lastPayment'));
 
-    // Get booking details from session storage
-    const allBookings = JSON.parse(sessionStorage.getItem('allBookings') || '[]');
-    const bookingDetails = allBookings.find(booking => booking.bookingId === bookingId);
-
-    if (!bookingDetails) {
+    if (!bookingDetails || !paymentDetails) {
+        console.error('Missing booking or payment details');
         window.location.href = sessionStorage.getItem('userType') === 'officer' 
             ? 'officer-dashboard.html' 
             : 'customer-dashboard.html';
@@ -23,7 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Populate invoice details
     document.getElementById('bookingId').textContent = bookingDetails.bookingId;
-    document.getElementById('bookingDate').textContent = new Date().toLocaleDateString();
+    document.getElementById('bookingDate').textContent = new Date(paymentDetails.date).toLocaleDateString();
+    document.getElementById('amount').textContent = `₹${paymentDetails.amount}`;
+    document.getElementById('paymentDate').textContent = new Date(paymentDetails.date).toLocaleString();
+    document.getElementById('cardNumber').textContent = `xxxx-xxxx-xxxx-${paymentDetails.cardNumber}`;
+    document.getElementById('cardHolder').textContent = paymentDetails.cardHolder;
+    
     document.getElementById('receiverName').textContent = bookingDetails.receiverName;
     document.getElementById('receiverAddress').textContent = bookingDetails.receiverAddress;
     document.getElementById('receiverPin').textContent = bookingDetails.receiverPinCode;

@@ -58,10 +58,11 @@
                         <label for="cardNumber">Card Number <span class="required">*</span></label>
                         <div class="card-input-wrapper">
                             <i class="fas fa-credit-card"></i>
-                            <input type="text" id="cardNumber" required pattern="[0-9]{16}" 
+                            <input type="text" id="cardNumber" required 
                                 placeholder="xxxx xxxx xxxx xxxx" 
                                 autocomplete="cc-number" 
                                 inputmode="numeric"
+                                maxlength="19"
                                 aria-required="true">
                             <span class="error" id="cardNumberError"></span>
                         </div>
@@ -103,7 +104,7 @@
 
                 <div class="form-actions">
                     <button type="button" id="backButton">Back to Booking</button>
-                    <button type="submit" id="makePaymentBtn">Make Payment</button>
+                    <button type="button" id="makePaymentBtn">Make Payment</button>
                 </div>
             </form>
         </div>
