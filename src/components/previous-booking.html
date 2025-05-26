@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Previous Bookings - PMS</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="top-bar">
+            <div class="nav-links">
+                <a href="customer-dashboard.html">Home</a>
+                <a href="booking-service.html">Booking</a>
+                <a href="tracking.html">Tracking</a>
+                <a href="#" class="active">Previous Booking</a>
+                <a href="customer-support.html">Contact Support</a>
+            </div>
+            <div class="user-info">
+                <span id="welcomeUser">Welcome <span id="username"></span></span>
+                <button id="logoutBtn">Logout</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="previous-bookings-container">
+        <div class="bookings-card">
+            <div class="bookings-header">
+                <h1><i class="fas fa-history"></i> Previous Bookings</h1>
+                <div class="filter-bar">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchBookings" placeholder="Search bookings...">
+                        <div class="search-tooltip">Search by Booking ID, Customer ID, or Receiver Name</div>
+                    </div>
+                    <div class="filter-group">
+                        <select id="statusFilter" class="filter-select">
+                            <option value="all">All Status</option>
+                            <option value="Booked">Booked</option>
+                            <option value="Pickup">Pickup</option>
+                            <option value="In Transit">In Transit</option>
+                            <option value="Delivered">Delivered</option>
+                        </select>
+                        <select id="dateFilter" class="filter-select">
+                            <option value="all">All Time</option>
+                            <option value="today">Today</option>
+                            <option value="week">This Week</option>
+                            <option value="month">This Month</option>
+                            <option value="custom">Custom Range</option>
+                        </select>
+                        <div id="dateRangeFilter" class="date-range">
+                            <input type="date" id="startDate" class="date-input" title="Start Date">
+                            <span class="date-separator">to</span>
+                            <input type="date" id="endDate" class="date-input" title="End Date">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bookings-table-container">
+                <table class="bookings-table">
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>Customer ID</th>
+                            <th>Status</th>
+                            <th>Pickup Date</th>
+                            <th>Delivery Speed</th>
+                            <th>Receiver Name</th>
+                            <th>Delivered Address</th>
+                            <th>Weight (g)</th>
+                            <th>Contents</th>
+                            <th>Amount (₹)</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookingsTableBody">
+                        <!-- Bookings will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="noBookings" class="no-bookings hidden">
+                <i class="fas fa-box-open"></i>
+                <p>No bookings found</p>
+            </div>
+
+            <div class="pagination">
+                <button id="prevPage" class="page-btn" disabled>
+                    <i class="fas fa-chevron-left"></i> Previous
+                </button>
+                <div class="page-info">
+                    <span id="pageInfo">Page 1 of 1</span>
+                    <select id="itemsPerPage" class="items-per-page">
+                        <option value="10">10 per page</option>
+                        <option value="25">25 per page</option>
+                        <option value="50">50 per page</option>
+                    </select>
+                </div>
+                <button id="nextPage" class="page-btn" disabled>
+                    Next <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/previous-booking.js"></script>
+</body>
+</html>
