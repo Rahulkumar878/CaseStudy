@@ -1,0 +1,175 @@
+SlNo,Feature,Story number,Description (Card),Acceptance Criteria (Confirmation),Initial Size Estimate (SP),Business Priority,Sprint Number,Comments
+1,Log In - UI,,As a customer I should be able to login to the application using the username and passwrod,"Login page should have below details:
+
+-Username and Password:
+User ID:User ID: <textbox min 5 and max 20>
+Password: A text value for Password(Maximum 30 characters, Minimum one upper case, lower case and special character )
+
+-Error message:
+Displaying appropriate specific error message for invalid input..
+
+-Successful Login:
+User should redirected to a dashboard/Home page with role specifc options in it.",,,,
+2,Log In - UI,,As a Officer I should be able to login to the application using the username and passwrod,"Login page should have below details:
+
+-Username and Password:
+User ID:User ID: <textbox min 5 and max 20>
+Password: A text value for Password(Maximum 30 characters, Minimum one upper case, lower case and special character )
+
+-Error message:
+Displaying appropriate specific error message for invalid input..
+
+-Successful Login:
+User should redirected to a dashboard/Home page with role specifc options in it.",,,,
+3,Registration - UI,,"As a Customer, I want to be able to self register into the system with my details.","Consumer should be able to enter the following information in the screen;
+1.Personal Information:
+- Customer Name: A text value for Customer name(Maximum 50 characters)
+- Email: A text field to capture the Email.
+- Mobile number: <select box and text box)
+- After choosing the country code, 10 digit mobile number should be entered in text box
+-Address: A text value for complete mailing Address, including ZIP code and parcel code
+
+2.Username and Password:
+- User ID: <textbox min 5 and max 20>
+- Password: A text value for Password(Maximum 30 characters)
+- Confirm Password: A text value for confirm password(Maximum 30 characters)
+
+3.Preferences:
+-Specify any preferences related to mail delivery, notifications, or other relevant options
+
+- Register: Submit button.
+- Reset : Reset button
+
+* After clicking the 'Register' button, a registration acknowledgment screen need to be displayed with a success message. ""Consumer  Registration successful."" in green color. 
+* Also display the following attributes in the Acknowledgment screen; Customer username(Randomly generated), Customer Name and Email.",,,,
+4,Homepage â UI,,"As a Customer, I want to view the Home Page of application with all required options relevant to customer.","* After login to the system using the customerId and password, customer can view the home page with following information in the screen;
+- At the right side, display Welcome <username>, 
+- Top bar, have following menu
+   1)Home - onclicking it redirect to the same page .
+   2)Booking service- On clicking it should be able to proceed with the booking.
+   3)Tracking - On clicking it should be navigated to Tracking Screen
+   4)Previous Booking â On clicking it Should be navigated to Previous Booking Screen.                        
+  5) Contact Support- On clicking it  Should be redirected to support page/ helper page                     
+  6) Logout â on clicking it should redirect to login page of the project, by clearing the userdetails from browser",,,,
+5,Homepage â UI,,"As an officer, I want to view the Home Page with options relevant to officer.","* After login to the system using the customerId and password, officer can view the home page with following information in the screen;
+- At the right side, display Welcome <username>
+- Top bar, have following menu
+   1)Home - onclicking it redirect to the same page .
+   2)Tracking - On clicking it should be navigated to Tracking Screen
+   3)Delivery Status - On clicking it should be redirected to Delivery Status Screen
+   4) Pickup Scheduling-On clicking it should be redirected to Pickup Scheduling Screen.
+  5) Previous Booking â On clicking it Should be navigated to Previous Booking Screen.
+   6) Logout â on clicking it should redirect to first page of the project",,,,
+6,Booking Service,,"As a Customer, I should to be able to book a service from Parcel Management System","Below details needs to be displayed when user clicks on Booking service in the home page :
+1. Sender Information: (This need to pre-populate as read only  based on the current user)
+-Name
+-Address
+-Contact details
+2. Receiver Information/Customer information:
+-Name
+-Address
+-Pin Code
+-Contact details
+3. Parcel Details:
+-Size and weight
+-Contents description (for tracking and safety)
+4. Shipping Options:
+-Choose delivery speed (standard, express, etc.)
+-Select packaging preferences (Standard Packaging, Custom Packaging, Eco-friendly Packaging, Fragile Item handling)
+5. Date and Time Selection:
+-Choose preferred pickup or drop-off time
+6. Service Cost and Payment:
+-Display the cost based on the chosen options (Parcel Size, Shipping options)
+-Provide different payment methods
+7.Additional Services:
+-Insurance options
+-Tracking services
+8. Implement all possible validations with custom validation messages.",,,,
+7,Booking Service,,"As an officer, I should to be able to book the service from Parcel Management System","Below details needs to be displayed :
+1. Sender Information: (This need to be enabled for the officer to enter the details)
+-Name
+-Address
+-Contact details
+2. Receiver Information/Customer information:
+-Name
+-Address
+-Pin Code
+-Contact details
+3. Parcel Details:
+-Size and weight
+-Contents description (for tracking and safety)
+4. Shipping Options:
+-Choose delivery speed (standard, express, etc.)
+-Select packaging preferences (Standard Packaging, Custom Packaging, Eco-friendly Packaging, Fragile Item handling)
+5. Date and Time Selection:
+-Choose preferred pickup or drop-off time
+6. Service Cost and Payment:
+-Display the cost based on the chosen options (Parcel Size, Shipping options)
+-Provide different payment methods
+7.Additional Services:
+-Insurance options
+-Tracking services
+8. Implement all possible validations with custom validation messages.",,,,
+8,Pay Bill â UI,,"As a Customer, I should be able to  pay the booking service bill from ""Booking Service Page""","In the Payment page, customer can view the following information in the screen;
+- At the right side  , Welcome <username>, Logout button<onclicking it should be logged out>  
+- Payment page should display the below details
+ a) Bill Amount (should not be editable by the customer)
+ b) Mode of Payment â Debit/Credit
+    - Pay Now button - On Clicking will proceed to screen for entering the card details
+    - Back to Home - On Clicking , it should redirect to booking service page
+On clicking the Pay Now button, it should be redirected to Screen where   Customer can provide his Credit Card details to pay the bill
+   -Credit Card <text as title>:(Read only)
+   -Card No  <16 digits>
+   -Card Holder Name 
+   -Expiry Date <MM/YY>
+   -CVV < 3 digits>
+- Make Payment<button >
+- On clicking the Make Payment button, ""Payment Successful"" message along with  Booking ID and redirect to invoice page
+- Use javascript for the necessary actions.",,,,
+9,Invoice Page,,"As a customer/officer, I should be able to view the invoice once the payment is successful ","The invoice page need to contain the below detail read only with print option
+-Receiver Name
+-Receiver Address
+-Receiver Pin
+-Receiver Mobile
+-Parcel Weight(g)
+-Parcel Contents Description
+-Parcel Delivery Type
+-Parcel Packing Preference
+-Parcel Pickup Time
+-Parcel Dropoff Time
+-Parcel Service Cost
+-Parcel Payment Time",,,,
+10,Tracking status â Customer (UI),,"As a Customer, I should be able to track the status of my parcel by providing the tracking numbers.","* Customer can able to enter the following information in the tracking screen;
+After successful shipping of the package customer should be able to view the tracking status of the package which he/she boooked by providing the following details.:
+- Booking ID- A 12 digit number that is randomly generated after booking a package(Unique code)
+- Search button- Once clicked the page should display the status of the package.",,,,
+11,Tracking status â Officer (UI),,"As a Officer, I should be able to check the status of a customer's package.","* After login to the system using the userId and password of the Officer , he/she can view the  page with following information in the screen;
+- List of all the shipped package sorted latest on the top
+- A search box where the Officer can provide the Customer ID and Booking Id of a particular Customer.
+- Search button
+- Once clicked the page should display the status of the package.",,,,
+12,Pickup Scheduling -Officer(UI),,As an Officer I should be able to schedule pick-up of packages from the sender.,"* The following details should be displayed for the officer to schedule a pickup:
+Officer should have option to search with Booking ID based on the result officer should able to provide a date and time after consultation with Customer
+- Booking ID of a particular customer
+- Date and Time
+ 
+a save button should save the information to the system. with proper message and validation.",,,,
+14,Delivery Update,,As an officer I want to update the delivery status of the particular item,"Based on the different points, officer should able to update the status of the package by searching Booking ID
+- Picked up
+- In Transit
+- Delivered
+- Returned",,,,
+15,Customer Support â UI,,"As a Customer, I should be able to view the contact details of customer support","In the Customer Support page, customer can view the following information in the screen;
+- At the right side  , Welcome <username>, Logout button<onclicking it should be logged out>  
+- Customer can able to view the following details for query/complaints 
+   a) Contact number
+   b) Mail id
+   c) Address                               ",,,,
+16,Booking History â UI,,"As a Customer, I should be able to view the booking details.","In the Customer Booking history page , customer can able to view the following information in the screen;
+- At the right side  , Welcome <username>, Logout button<onclicking it should be logged out>  
+- Customer can able to view the following details for his/her previous booking                                                                                                                                                                         Customer ID | Booking ID | Booking Date |  Receiver Name | Delivered address | Amount |Status                  
+- previous and next option need to be available in the screen.                                                                        ",,,,
+17,Booking History â UI,,"As an Officer, I should be able to view the booking details based on the User ID and Date Range","In the Officer Booking history page , officer can able to view the following information in the screen;
+- At the right side  , Welcome <username>, Logout button<onclicking it should be logged out>  
+- officer can able to view the following details for previous booking based on the customer ID and Date Range                                                                                                                         Customer ID | Booking ID | Booking Date |  Receiver Name | Delivered address | Amount|Status 
+- previous and next option need to be available in the screen.                                                        ",,,,
