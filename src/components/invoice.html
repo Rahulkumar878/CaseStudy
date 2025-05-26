@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice - PMS</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="top-bar">
+            <div class="nav-links">
+                <a href="#" class="active">Invoice</a>
+            </div>
+            <div class="user-info">
+                <span id="welcomeUser">Welcome <span id="username"></span></span>
+                <button id="logoutBtn">Logout</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="invoice-container">
+        <div class="invoice-card">
+            <div class="invoice-header">
+                <h1><i class="fas fa-receipt"></i> Invoice</h1>
+                <div class="success-message">
+                    <i class="fas fa-check-circle"></i>
+                    Payment Successful
+                </div>
+            </div>
+
+            <div class="booking-details">
+                <div class="detail-section">
+                    <h2>Booking Information</h2>
+                    <div class="detail-row">
+                        <span>Booking ID:</span>
+                        <span id="bookingId"></span>
+                    </div>
+                    <div class="detail-row">
+                        <span>Booking Date:</span>
+                        <span id="bookingDate"></span>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <h2>Receiver Details</h2>
+                    <div class="detail-row">
+                        <span>Name:</span>
+                        <span id="receiverName"></span>
+                    </div>
+                    <div class="detail-row">
+                        <span>Address:</span>
+                        <span id="receiverAddress"></span>
+                    </div>
+                    <div class="detail-row">
+                        <span>PIN Code:</span>
+                        <span id="receiverPin"></span>
+                    </div>
+                    <div class="detail-row">
+                        <span>Mobile:</span>
+                        <span id="receiverMobile"></span>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <h2>Parcel Information</h2>
+                    <div class="detail-row">
+                        <span>Weight:</span>
+                        <span id="parcelWeight"></span>
+                    </div>
+                    <div class="detail-row">
+                        <span>Contents Description:</span>
+                        <span id="parcelContents"></span>
+                    </div>
+                    <div class="detail-row">
+                        <span>Delivery Type:</span>
+                        <span id="deliveryType"></span>
+                    </div>
+                    <div class="detail-row">
+                        <span>Packaging Preference:</span>
+                        <span id="packagingType"></span>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <h2>Schedule Information</h2>
+                    <div class="detail-row">
+                        <span>Pickup Time:</span>
+                        <span id="pickupTime"></span>
+                    </div>
+                    <div class="detail-row">
+                        <span>Expected Delivery:</span>
+                        <span id="expectedDelivery"></span>
+                    </div>
+                </div>
+
+                <div class="detail-section payment-details">
+                    <h2>Payment Information</h2>
+                    <div class="detail-row">
+                        <span>Service Cost:</span>
+                        <span id="serviceCost"></span>
+                    </div>
+                    <div class="detail-row">
+                        <span>Payment Time:</span>
+                        <span id="paymentTime"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="invoice-actions">
+                <button id="printBtn" onclick="window.print()">
+                    <i class="fas fa-print"></i> Print Invoice
+                </button>
+                <button id="homeBtn">
+                    <i class="fas fa-home"></i> Go to Dashboard
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/invoice.js"></script>
+</body>
+</html>
