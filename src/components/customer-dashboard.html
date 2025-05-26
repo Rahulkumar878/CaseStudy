@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard - PMS</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <header>
+        <nav class="top-bar">
+            <div class="nav-links">
+                <a href="#" class="active">Home</a>
+                <a href="booking-service.html">Booking Service</a>
+                <a href="tracking.html">Tracking</a>
+                <a href="previous-booking.html">Previous Booking</a>
+                <a href="customer-support.html">Contact Support</a>
+            </div>
+            <div class="user-info">
+                <span id="welcomeUser">Welcome <span id="username"></span></span>
+                <button id="logoutBtn">Logout</button>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <h1>Welcome to Customer Dashboard</h1>
+        <!-- Dashboard content will go here -->
+    </main>
+
+    <script>
+        // Check if user is logged in
+        if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('userType') !== 'customer') {
+            window.location.href = '/workspaces/CaseStudy/src/index.html';
+        }
+
+        // Display username
+        document.getElementById('username').textContent = sessionStorage.getItem('userId');
+
+        // Logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            sessionStorage.clear();
+            window.location.href = '/workspaces/CaseStudy/src/index.html';
+        });
+    </script>
+</body>
+</html>

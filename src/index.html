@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PMS - Parcel Management System</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="login-container">
+            <h1>Parcel Management System</h1>
+            <form id="loginForm" novalidate>
+                <div class="form-group">
+                    <label for="userId">User ID:</label>
+                    <input type="text" id="userId" name="userId" required 
+                           minlength="5" maxlength="20"
+                           placeholder="Enter your user ID">
+                    <span class="error" id="userIdError"></span>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required 
+                           maxlength="30"
+                           placeholder="Enter your password">
+                    <span class="error" id="passwordError"></span>
+                </div>
+                <div class="form-group">
+                    <label for="userType">Login As:</label>
+                    <select id="userType" name="userType" required>
+                        <option value="">Select User Type</option>
+                        <option value="customer">Customer</option>
+                        <option value="officer">Officer</option>
+                    </select>
+                    <span class="error" id="userTypeError"></span>
+                </div>
+                <button type="submit">Login</button>
+                <p class="register-link">New Customer? <a href="components/registration.html">Register here</a></p>
+            </form>
+        </div>
+    </div>
+    <script src="js/login.js"></script>
+</body>
+</html>
