@@ -183,8 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 cardNumber: cardNumber.replace(/\s/g, '').slice(-4), // Only store last 4 digits
                 cardHolder: cardHolder,
                 expiryDate: expiryDate,
-                amount: bookingDetails.amount,
-                currency: '₹', // Indian Rupees
+                amount: `₹${bookingDetails.amount}`, // Include currency symbol in amount
                 date: new Date().toISOString(),
                 bookingId: bookingDetails.bookingId
             };

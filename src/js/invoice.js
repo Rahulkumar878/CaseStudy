@@ -20,11 +20,59 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Populate invoice details
     document.getElementById('bookingId').textContent = bookingDetails.bookingId;
-    document.getElementById('bookingDate').textContent = new Date(paymentDetails.date).toLocaleDateString();
-    document.getElementById('amount').textContent = `₹${paymentDetails.amount}`;
+    document.getElementById('bookingDate').textContent = new Date(bookingDetails.bookingTime || bookingDetails.paymentTime).toLocaleDateString();
+    document.getElementById('amount').textContent = paymentDetails.amount; // Amount already includes currency symbol
     document.getElementById('paymentDate').textContent = new Date(paymentDetails.date).toLocaleString();
     document.getElementById('cardNumber').textContent = `xxxx-xxxx-xxxx-${paymentDetails.cardNumber}`;
     document.getElementById('cardHolder').textContent = paymentDetails.cardHolder;
+    
+    // Calculate estimated delivery date based on delivery speed
+    const paymentDate = new Date(paymentDetails.date);
+    let estimatedDelivery;
+    switch(bookingDetails.deliverySpeed) {
+        case 'sameday':
+            estimatedDelivery = new Date(paymentDate);
+            estimatedDelivery.setHours(23, 59, 59);
+            break;
+        case 'express':
+            estimatedDelivery = new Date(paymentDate);
+            estimatedDelivery.setDate(estimatedDelivery.getDate() + 2);
+            break;
+        default: // standard
+            estimatedDelivery = new Date(paymentDate);
+            estimatedDelivery.setDate(estimatedDelivery.getDate() + 5);
+    }
+    document.getElementById('expectedDelivery').textContent = estimatedDelivery.toLocaleDateString();
+    
+    // Format service details
+    const serviceCost = document.getElementById('serviceCost');
+    if (serviceCost) {
+        serviceCost.textContent = `${paymentDetails.currency}${paymentDetails.amount}`;
+    }
+    
+    const paymentTime = document.getElementById('paymentTime');
+    if (paymentTime) {
+        paymentTime.textContent = new Date(paymentDetails.date).toLocaleString();
+    }
+
+    // Add print functionality
+    const printButton = document.getElementById('printInvoice');
+    if (printButton) {
+        printButton.addEventListener('click', () => {
+            // Hide the print button temporarily
+            printButton.style.display = 'none';
+            document.getElementById('logoutBtn').style.display = 'none';
+            
+            // Print the page
+            window.print();
+            
+            // Show the buttons again
+            setTimeout(() => {
+                printButton.style.display = 'block';
+                document.getElementById('logoutBtn').style.display = 'block';
+            }, 500);
+        });
+    }
     
     document.getElementById('receiverName').textContent = bookingDetails.receiverName;
     document.getElementById('receiverAddress').textContent = bookingDetails.receiverAddress;
@@ -74,16 +122,33 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('paymentTime').textContent = 
         new Date(bookingDetails.paymentTime).toLocaleString();
 
-    // Logout functionality
+    // Handle navigation to dashboard
+    const homeBtn = document.getElementById('homeBtn');
+    if (homeBtn) {
+        homeBtn.addEventListener('click', () => {
+            // Clear payment specific data
+            sessionStorage.removeItem('lastPayment');
+            sessionStorage.removeItem('lastBooking');
+
+            // Navigate to appropriate dashboard
+            window.location.href = sessionStorage.getItem('userType') === 'officer' 
+                ? 'officer-dashboard.html' 
+                : 'customer-dashboard.html';
+        });
+    }
+
+    // Handle print button
+    const printBtn = document.getElementById('printBtn');
+    if (printBtn) {
+        printBtn.addEventListener('click', () => {
+            // Print window will automatically hide UI elements via CSS
+            window.print();
+        });
+    }
+
+    // Handle logout
     document.getElementById('logoutBtn').addEventListener('click', () => {
         sessionStorage.clear();
         window.location.href = '../../src/index.html';
-    });
-
-    // Home button functionality
-    document.getElementById('homeBtn').addEventListener('click', () => {
-        window.location.href = sessionStorage.getItem('userType') === 'officer' 
-            ? 'officer-dashboard.html' 
-            : 'customer-dashboard.html';
     });
 });

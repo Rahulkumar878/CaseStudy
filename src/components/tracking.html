@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Parcels - PMS</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="top-bar">
+            <div class="nav-links">
+                <a href="customer-dashboard.html">Home</a>
+                <a href="booking-service.html">Booking</a>
+                <a href="#" class="active">Tracking</a>
+                <a href="previous-booking.html">Previous Booking</a>
+                <a href="customer-support.html">Contact Support</a>
+            </div>
+            <div class="user-info">
+                <span id="welcomeUser">Welcome <span id="username"></span></span>
+                <button id="logoutBtn">Logout</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="tracking-container">
+        <div class="tracking-card">
+            <div class="tracking-header">
+                <h1><i class="fas fa-search-location"></i> Track Your Parcels</h1>
+                <p class="subtitle">Enter your booking ID to track your parcel's journey</p>
+            </div>
+            
+            <div class="tracking-search">
+                <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="trackingId" placeholder="Enter your 12-digit Booking ID" maxlength="12" pattern="[0-9]{12}">
+                    <button id="searchBtn" disabled>
+                        <i class="fas fa-arrow-right"></i>
+                        <span>Track Parcel</span>
+                    </button>
+                </div>
+                <p id="validationMessage" class="validation-message"></p>
+                <p class="search-hint">Example: 123456789012</p>
+            </div>
+
+            <div id="trackingResult" class="tracking-result hidden">
+                <h2>Tracking Details</h2>
+                <div class="parcel-info">
+                    <div class="info-row">
+                        <span>Booking ID:</span>
+                        <span id="bookingId"></span>
+                    </div>
+                    <div class="info-row">
+                        <span>Current Status:</span>
+                        <span id="currentStatus"></span>
+                    </div>
+                    <div class="info-row">
+                        <span>Expected Delivery:</span>
+                        <span id="expectedDelivery"></span>
+                    </div>
+                </div>
+
+                <div class="tracking-timeline">
+                    <div class="timeline-item" data-status="booked">
+                        <div class="status-icon">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <div class="status-content">
+                            <h3>Booked</h3>
+                            <p id="bookedTime"></p>
+                        </div>
+                    </div>
+                    <div class="timeline-item" data-status="pickup">
+                        <div class="status-icon">
+                            <i class="fas fa-truck-pickup"></i>
+                        </div>
+                        <div class="status-content">
+                            <h3>Pickup</h3>
+                            <p id="pickupTime"></p>
+                        </div>
+                    </div>
+                    <div class="timeline-item" data-status="intransit">
+                        <div class="status-icon">
+                            <i class="fas fa-shipping-fast"></i>
+                        </div>
+                        <div class="status-content">
+                            <h3>In Transit</h3>
+                            <p id="transitTime"></p>
+                        </div>
+                    </div>
+                    <div class="timeline-item" data-status="delivered">
+                        <div class="status-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="status-content">
+                            <h3>Delivered</h3>
+                            <p id="deliveredTime"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="delivery-details">
+                    <h3>Delivery Information</h3>
+                    <div class="info-grid">
+                        <div class="info-column">
+                            <h4>From</h4>
+                            <p id="senderName"></p>
+                            <p id="senderAddress"></p>
+                            <p id="senderContact"></p>
+                        </div>
+                        <div class="info-column">
+                            <h4>To</h4>
+                            <p id="receiverName"></p>
+                            <p id="receiverAddress"></p>
+                            <p id="receiverContact"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="noResult" class="no-result hidden">
+                <i class="fas fa-exclamation-circle"></i>
+                <p>No tracking information found for this ID.</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/tracking.js"></script>
+</body>
+</html>
