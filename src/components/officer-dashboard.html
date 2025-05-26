@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Officer Dashboard - PMS</title>
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <header>
@@ -24,7 +25,32 @@
     </header>
     <main>
         <h1>Welcome to Officer Dashboard</h1>
-        <!-- Dashboard content will go here -->
+        <div class="dashboard-grid">
+            <div class="dashboard-card">
+                <i class="fas fa-truck-fast card-icon"></i>
+                <h2>Parcel Tracking</h2>
+                <p>Monitor and update the status of parcels in transit.</p>
+                <button onclick="window.location.href='tracking.html'">Track Parcels</button>
+            </div>
+            <div class="dashboard-card">
+                <i class="fas fa-clipboard-list card-icon"></i>
+                <h2>Delivery Management</h2>
+                <p>Update delivery status and manage delivery schedules.</p>
+                <button onclick="window.location.href='delivery-status.html'">Manage Deliveries</button>
+            </div>
+            <div class="dashboard-card">
+                <i class="fas fa-calendar-check card-icon"></i>
+                <h2>Pickup Scheduling</h2>
+                <p>Organize and manage pickup schedules for new parcels.</p>
+                <button onclick="window.location.href='pickup-scheduling.html'">Schedule Pickups</button>
+            </div>
+            <div class="dashboard-card">
+                <i class="fas fa-history card-icon"></i>
+                <h2>Delivery History</h2>
+                <p>View past deliveries and delivery performance.</p>
+                <button onclick="window.location.href='previous-booking.html'">View History</button>
+            </div>
+        </div>
     </main>
 
     <script>

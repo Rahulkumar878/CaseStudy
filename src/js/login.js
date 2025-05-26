@@ -84,10 +84,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // Redirect to appropriate dashboard
             // window.location.href = `../components/${userType}-dashboard.html`;
             if (userType === 'customer') {
-                window.location.href = '../components/customer-dashboard.html';
+                window.location.href = '../../src/components/customer-dashboard.html';
             }
             else if (userType === 'officer') {
-                window.location.href = '../components/officer-dashboard.html';
+                window.location.href = '../../src/components/officer-dashboard.html';
             }
         }
     });
