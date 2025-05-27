@@ -1174,42 +1174,352 @@ main h1 {
     background: white;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .previous-bookings-container {
-        padding: 1rem;
-    }
+/* Support Page Styles */
+.support-container {
+    padding: 2rem;
+}
 
-    .filter-bar {
-        flex-direction: column;
-    }
+.support-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+}
 
-    .search-box {
-        width: 100%;
-    }
+.support-header {
+    margin-bottom: 2rem;
+}
 
-    .filter-group {
-        width: 100%;
-    }
+.support-header h1 {
+    color: #2c3e50;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
 
-    .date-range {
-        width: 100%;
-        justify-content: space-between;
-    }
+.support-header h1 i {
+    color: #3498db;
+}
 
-    .bookings-table th,
-    .bookings-table td {
-        padding: 0.8rem;
-    }
+.support-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
 
-    .pagination {
-        flex-direction: column;
-        gap: 1rem;
-        align-items: stretch;
-    }
+/* FAQ Section */
+.faq-section h2,
+.contact-section h2,
+.quick-help-section h2 {
+    color: #2c3e50;
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
 
-    .page-info {
-        order: -1;
-        justify-content: center;
-    }
+.faq-section h2 i,
+.contact-section h2 i,
+.quick-help-section h2 i {
+    color: #3498db;
+}
+
+.faq-item {
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.faq-question {
+    padding: 1rem;
+    background: #f8f9fa;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+}
+
+.faq-question i {
+    color: #6c757d;
+    transition: transform 0.3s ease;
+}
+
+.faq-item.active .faq-question i {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, padding 0.3s ease;
+    background: white;
+}
+
+.faq-item.active .faq-answer {
+    padding: 1rem;
+    border-top: 1px solid #dee2e6;
+}
+
+/* Contact Support Form */
+.support-form {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 6px;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    font-size: 0.95rem;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* Quick Help Section */
+.help-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.help-card {
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    background: #f8f9fa;
+}
+
+.help-card i {
+    font-size: 2rem;
+    color: #3498db;
+    margin-bottom: 1rem;
+}
+
+.help-card h3 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.help-card p {
+    color: #6c757d;
+    margin-bottom: 1rem;
+}
+
+.help-card a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.help-card a:hover {
+    text-decoration: underline;
+}
+
+/* Delivery Status and Pickup Scheduling Styles */
+.delivery-status-container,
+.pickup-scheduling-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.search-section {
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.search-box {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-box input {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.search-box button {
+    padding: 0.75rem 1.5rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.search-box button:hover {
+    background-color: #0056b3;
+}
+
+.status-update-section,
+.scheduling-form {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-top: 2rem;
+}
+
+.parcel-info,
+.booking-info {
+    margin-bottom: 2rem;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.info-item label {
+    font-weight: bold;
+    color: #666;
+}
+
+.status-update,
+.schedule-section {
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    padding: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.form-group select,
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+#updateStatusBtn,
+#schedulePickupBtn {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+#updateStatusBtn:hover,
+#schedulePickupBtn:hover {
+    background-color: #218838;
+}
+
+.no-result {
+    text-align: center;
+    margin-top: 3rem;
+    color: #666;
+}
+
+.no-result i {
+    font-size: 3rem;
+    color: #dc3545;
+    margin-bottom: 1rem;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Status Badge Colors */
+.status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.status-booked {
+    background-color: #e2e3e5;
+    color: #383d41;
+}
+
+.status-pickup {
+    background-color: #cce5ff;
+    color: #004085;
+}
+
+.status-transit {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.status-delivered {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status-returned {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Error message styles */
+.error {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: block;
 }

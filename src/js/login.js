@@ -81,13 +81,17 @@ document.addEventListener('DOMContentLoaded', () => {
             sessionStorage.setItem('userId', userId);
             sessionStorage.setItem('isLoggedIn', 'true');
 
+            // Initialize bookings array if it doesn't exist
+            if (!sessionStorage.getItem('bookings')) {
+                sessionStorage.setItem('bookings', JSON.stringify([]));
+            }
+
             // Redirect to appropriate dashboard
-            // window.location.href = `../components/${userType}-dashboard.html`;
             if (userType === 'customer') {
-                window.location.href = '../../src/components/customer-dashboard.html';
+                window.location.href = 'components/customer-dashboard.html';
             }
             else if (userType === 'officer') {
-                window.location.href = '../../src/components/officer-dashboard.html';
+                window.location.href = 'components/officer-dashboard.html';
             }
         }
     });

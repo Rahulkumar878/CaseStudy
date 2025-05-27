@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Check if user is logged in
     if (!sessionStorage.getItem('isLoggedIn')) {
-        window.location.href = '../../src/index.html';
+        window.location.href = '../index.html';
     }
 
     // Get booking details from session storage

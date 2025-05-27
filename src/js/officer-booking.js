@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Check if user is logged in as an officer
     if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('userType') !== 'officer') {
-        window.location.href = '../../src/index.html';
+        window.location.href = '../index.html';
     }
 
     // Display username
@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Logout functionality
     document.getElementById('logoutBtn').addEventListener('click', () => {
         sessionStorage.clear();
-        window.location.href = '../../src/index.html';
+        window.location.href = '../index.html';
     });
 
     // Get form elements
@@ -130,6 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Store booking details in session storage
         const bookingDetails = {
             bookingId,
+            customerId: document.getElementById('senderName').value.replace(/[^a-zA-Z0-9]/g, '').substr(0, 6).toUpperCase(),
             senderName: document.getElementById('senderName').value,
             senderAddress: document.getElementById('senderAddress').value,
             senderContact: document.getElementById('senderContact').value,

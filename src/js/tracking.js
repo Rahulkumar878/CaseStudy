@@ -1,7 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Check if user is logged in
     if (!sessionStorage.getItem('isLoggedIn')) {
-        window.location.href = '../../src/index.html';
+        window.location.href = '../index.html';
+    }
+
+    // Update navigation based on user type
+    const userType = sessionStorage.getItem('userType');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (userType === 'officer') {
+        navLinks.innerHTML = `
+            <a href="officer-dashboard.html">Home</a>
+            <a href="officer-booking.html">Booking Service</a>
+            <a href="#" class="active">Tracking</a>
+            <a href="delivery-status.html">Delivery Status</a>
+            <a href="pickup-scheduling.html">Pickup Scheduling</a>
+            <a href="previous-booking.html">Previous Booking</a>
+        `;
+    } else {
+        navLinks.innerHTML = `
+            <a href="customer-dashboard.html">Home</a>
+            <a href="booking-service.html">Booking Service</a>
+            <a href="#" class="active">Tracking</a>
+            <a href="previous-booking.html">Previous Booking</a>
+            <a href="customer-support.html">Contact Support</a>
+        `;
     }
 
     // Add sample booking data if no bookings exist

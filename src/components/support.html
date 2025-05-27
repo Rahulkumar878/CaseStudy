@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support - PMS</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-brand">
+                <img src="../assets/logo.png" alt="PMS Logo" class="nav-logo">
+                <span>Parcel Management System</span>
+            </div>
+            <div class="nav-user">
+                <span id="username"></span>
+                <button id="logoutBtn" class="btn btn-outline">Logout</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="support-container">
+        <div class="support-card">
+            <div class="support-header">
+                <h1><i class="fas fa-headset"></i> Customer Support</h1>
+            </div>
+
+            <div class="support-sections">
+                <!-- FAQ Section -->
+                <section class="faq-section">
+                    <h2><i class="fas fa-question-circle"></i> Frequently Asked Questions</h2>
+                    <div class="faq-list">
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span>How can I track my parcel?</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                You can track your parcel by clicking on the "Track" button in your previous bookings,
+                                or by entering your tracking ID on the tracking page.
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span>How do I book a new parcel delivery?</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                Log in to your account, go to "Book Service" and fill in the required details about
+                                your parcel and delivery preferences.
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span>What are the delivery speed options?</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                We offer three delivery speeds:
+                                <ul>
+                                    <li>Same Day Delivery - Delivery within 24 hours</li>
+                                    <li>Express Delivery - 2-3 business days</li>
+                                    <li>Standard Delivery - 4-5 business days</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span>How can I get an invoice for my booking?</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                You can find invoices for completed deliveries in your "Previous Bookings" page.
+                                Look for the invoice icon next to delivered parcels.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Contact Support Section -->
+                <section class="contact-section">
+                    <h2><i class="fas fa-envelope"></i> Contact Support</h2>
+                    <form id="supportForm" class="support-form">
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <select id="subject" required>
+                                <option value="">Select a subject</option>
+                                <option value="booking">Booking Issue</option>
+                                <option value="delivery">Delivery Problem</option>
+                                <option value="payment">Payment Issue</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="bookingId">Booking ID (if applicable)</label>
+                            <input type="text" id="bookingId" placeholder="Enter your booking ID">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" rows="5" required placeholder="Describe your issue..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Submit
+                        </button>
+                    </form>
+                </section>
+
+                <!-- Quick Help Section -->
+                <section class="quick-help-section">
+                    <h2><i class="fas fa-info-circle"></i> Quick Help</h2>
+                    <div class="help-cards">
+                        <div class="help-card">
+                            <i class="fas fa-phone"></i>
+                            <h3>Call Us</h3>
+                            <p>24/7 Customer Support</p>
+                            <a href="tel:1800-123-4567">1800-123-4567</a>
+                        </div>
+
+                        <div class="help-card">
+                            <i class="fas fa-comment-alt"></i>
+                            <h3>Live Chat</h3>
+                            <p>Chat with our support team</p>
+                            <button id="startChatBtn" class="btn btn-outline">Start Chat</button>
+                        </div>
+
+                        <div class="help-card">
+                            <i class="fas fa-envelope"></i>
+                            <h3>Email</h3>
+                            <p>We'll respond within 24 hours</p>
+                            <a href="mailto:support@pms.com">support@pms.com</a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/support.js"></script>
+</body>
+</html>

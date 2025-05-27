@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Status - PMS</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="top-bar">
+            <div class="nav-links">
+                <a href="officer-dashboard.html">Home</a>
+                <a href="tracking.html">Tracking</a>
+                <a href="#" class="active">Delivery Status</a>
+                <a href="pickup-scheduling.html">Pickup Scheduling</a>
+                <a href="previous-booking.html">Previous Booking</a>
+            </div>
+            <div class="user-info">
+                <span id="welcomeUser">Welcome <span id="username"></span></span>
+                <button id="logoutBtn">Logout</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="delivery-status-container">
+        <h1>Update Delivery Status</h1>
+        
+        <div class="search-section">
+            <div class="search-box">
+                <input type="text" id="searchBookingId" placeholder="Enter Booking ID">
+                <button id="searchBtn"><i class="fas fa-search"></i> Search</button>
+            </div>
+        </div>
+
+        <div class="status-update-section hidden" id="statusUpdateSection">
+            <div class="parcel-info">
+                <h2>Parcel Information</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>Booking ID:</label>
+                        <span id="bookingId"></span>
+                    </div>
+                    <div class="info-item">
+                        <label>Sender Name:</label>
+                        <span id="senderName"></span>
+                    </div>
+                    <div class="info-item">
+                        <label>Receiver Name:</label>
+                        <span id="receiverName"></span>
+                    </div>
+                    <div class="info-item">
+                        <label>Current Status:</label>
+                        <span id="currentStatus"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="status-update">
+                <h2>Update Status</h2>
+                <div class="form-group">
+                    <label for="newStatus">New Status:</label>
+                    <select id="newStatus">
+                        <option value="">Select new status</option>
+                        <option value="Picked up">Picked up</option>
+                        <option value="In Transit">In Transit</option>
+                        <option value="Delivered">Delivered</option>
+                        <option value="Returned">Returned</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="statusNotes">Notes (Optional):</label>
+                    <textarea id="statusNotes" placeholder="Add any additional notes..."></textarea>
+                </div>
+                <button id="updateStatusBtn">Update Status</button>
+            </div>
+        </div>
+
+        <div id="noResultMessage" class="no-result hidden">
+            <i class="fas fa-exclamation-circle"></i>
+            <p>No parcel found with the specified Booking ID.</p>
+        </div>
+    </main>
+
+    <script src="../js/delivery-status.js"></script>
+</body>
+</html>

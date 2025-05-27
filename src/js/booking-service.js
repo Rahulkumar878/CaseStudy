@@ -1,7 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Check if user is logged in
-    if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('userType') !== 'customer') {
-        window.location.href = '../../src/index.html';
+    if (!sessionStorage.getItem('isLoggedIn')) {
+        window.location.href = '../index.html';
+    }
+
+    // Update navigation based on user type
+    const userType = sessionStorage.getItem('userType');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (userType === 'officer') {
+        navLinks.innerHTML = `
+            <a href="officer-dashboard.html">Home</a>
+            <a href="#" class="active">Booking Service</a>
+            <a href="tracking.html">Tracking</a>
+            <a href="delivery-status.html">Delivery Status</a>
+            <a href="pickup-scheduling.html">Pickup Scheduling</a>
+            <a href="previous-booking.html">Previous Booking</a>
+        `;
+    } else {
+        navLinks.innerHTML = `
+            <a href="customer-dashboard.html">Home</a>
+            <a href="#" class="active">Booking Service</a>
+            <a href="tracking.html">Tracking</a>
+            <a href="previous-booking.html">Previous Booking</a>
+            <a href="customer-support.html">Contact Support</a>
+        `;
     }
 
     // Display username
@@ -18,10 +41,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const calculateBtn = document.getElementById('calculateBtn');
     const proceedToPayBtn = document.getElementById('proceedToPayBtn');
 
-    // Pre-populate sender information (simulated)
-    document.getElementById('senderName').value = 'John Doe';
-    document.getElementById('senderAddress').value = '123 Main St, City, State';
-    document.getElementById('senderContact').value = '9876543210';
+    // Pre-populate sender information for customer
+    const currentUser = sessionStorage.getItem('userId');
+    if (sessionStorage.getItem('userType') === 'customer') {
+        document.getElementById('senderName').value = currentUser;
+        document.getElementById('senderAddress').value = sessionStorage.getItem('userAddress') || '';
+        document.getElementById('senderContact').value = sessionStorage.getItem('userContact') || '';
+    }
 
     // Set minimum date for pickup to tomorrow
     const tomorrow = new Date();
@@ -125,12 +151,54 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         if (!validateForm()) return;
 
-        // Generate random booking ID (12 digits)
-        const bookingId = Math.floor(Math.random() * 1000000000000).toString().padStart(12, '0');
+        // Generate booking ID with PMS prefix and timestamp
+        const timestamp = Date.now();
+        const bookingId = 'PMS' + timestamp.toString().slice(-9);
+
+        // Calculate total amount
+        const weight = parseInt(document.getElementById('weight').value);
+        const deliverySpeed = document.getElementById('deliverySpeed').value;
+        const packaging = document.getElementById('packaging').value;
+        const insurance = document.getElementById('insurance').checked;
+
+        // Base charge calculation (₹20 per 500g)
+        const baseCharge = Math.ceil(weight / 500) * 20;
+
+        // Delivery speed multiplier
+        let speedMultiplier = 1;
+        switch (deliverySpeed) {
+            case 'express':
+                speedMultiplier = 1.5;
+                break;
+            case 'sameday':
+                speedMultiplier = 2;
+                break;
+        }
+
+        // Packaging charges
+        let packagingCharge = 0;
+        switch (packaging) {
+            case 'custom':
+                packagingCharge = 50;
+                break;
+            case 'eco':
+                packagingCharge = 30;
+                break;
+            case 'fragile':
+                packagingCharge = 100;
+                break;
+        }
+
+        // Insurance charge
+        const insuranceCharge = insurance ? Math.max(50, baseCharge * 0.05) : 0;
+        const totalAmount = (baseCharge * speedMultiplier + packagingCharge + insuranceCharge).toFixed(2);
 
         // Store booking details in session storage
         const bookingDetails = {
             bookingId,
+            customerId: sessionStorage.getItem('userId'),
+            bookingDate: new Date().toISOString(),
+            trackingStatus: 'Booked',
             senderName: document.getElementById('senderName').value,
             senderAddress: document.getElementById('senderAddress').value,
             senderContact: document.getElementById('senderContact').value,
@@ -145,11 +213,22 @@ document.addEventListener('DOMContentLoaded', () => {
             pickupDate: document.getElementById('pickupDate').value,
             pickupTime: document.getElementById('pickupTime').value,
             insurance: document.getElementById('insurance').checked,
-            amount: document.getElementById('totalAmount').textContent,
-            status: 'Payment Pending'
+            amount: totalAmount,
+            status: 'Payment Pending',
+            baseCharge: baseCharge * speedMultiplier,
+            packagingCharge,
+            insuranceCharge
         };
 
+        // Save to current booking for payment
         sessionStorage.setItem('currentBooking', JSON.stringify(bookingDetails));
+
+        // Save to all bookings
+        const allBookings = JSON.parse(sessionStorage.getItem('allBookings') || '[]');
+        allBookings.push(bookingDetails);
+        sessionStorage.setItem('allBookings', JSON.stringify(allBookings));
+
+        // Redirect to payment
         window.location.href = 'payment.html';
     });
 });
