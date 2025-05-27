@@ -7,6 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Display username
     document.getElementById('username').textContent = sessionStorage.getItem('userId');
 
+    // Logout functionality
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+        sessionStorage.clear();
+        window.location.href = '../index.html';
+    });
+
     // FAQ functionality
     const faqItems = document.querySelectorAll('.faq-item');
     faqItems.forEach(item => {
@@ -39,44 +45,91 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Support form submission
+    // Form validation
     const supportForm = document.getElementById('supportForm');
+    const bookingIdInput = document.getElementById('bookingId');
+
+    bookingIdInput.addEventListener('input', () => {
+        const bookingIdError = document.getElementById('bookingIdError');
+        const value = bookingIdInput.value.trim();
+        
+        if (value && !/^\d{12}$/.test(value)) {
+            bookingIdError.textContent = 'Booking ID must be 12 digits';
+        } else {
+            bookingIdError.textContent = '';
+        }
+    });
+
+    // Support form submission
     supportForm.addEventListener('submit', (e) => {
         e.preventDefault();
         
-        const formData = {
-            subject: document.getElementById('subject').value,
-            bookingId: document.getElementById('bookingId').value,
-            message: document.getElementById('message').value,
+        // Validate form
+        let isValid = true;
+        const subject = document.getElementById('subject').value;
+        const message = document.getElementById('message').value;
+        const bookingId = bookingIdInput.value.trim();
+
+        // Subject validation
+        if (!subject) {
+            document.getElementById('subjectError').textContent = 'Please select a subject';
+            isValid = false;
+        }
+
+        // Message validation
+        if (!message || message.length < 20) {
+            document.getElementById('messageError').textContent = 'Please provide a detailed message (minimum 20 characters)';
+            isValid = false;
+        }
+
+        // Booking ID validation (if provided)
+        if (bookingId && !/^\d{12}$/.test(bookingId)) {
+            document.getElementById('bookingIdError').textContent = 'Invalid booking ID format';
+            isValid = false;
+        }
+
+        if (!isValid) return;
+
+        // Generate ticket ID
+        const ticketId = 'TKT' + Date.now().toString().slice(-8);
+
+        // Create support ticket
+        const ticket = {
+            ticketId,
             userId: sessionStorage.getItem('userId'),
-            timestamp: new Date().toISOString()
+            subject,
+            bookingId: bookingId || null,
+            message,
+            status: 'Open',
+            createdAt: new Date().toISOString()
         };
 
-        // Store support ticket in session storage
-        const supportTickets = JSON.parse(sessionStorage.getItem('supportTickets') || '[]');
-        const ticketId = 'TICKET-' + Date.now();
-        supportTickets.push({
-            id: ticketId,
-            ...formData,
-            status: 'Open'
-        });
-        sessionStorage.setItem('supportTickets', JSON.stringify(supportTickets));
+        // Store ticket in session storage
+        const tickets = JSON.parse(sessionStorage.getItem('supportTickets') || '[]');
+        tickets.push(ticket);
+        sessionStorage.setItem('supportTickets', JSON.stringify(tickets));
 
         // Show success message
-        alert(`Your support ticket ${ticketId} has been submitted. We'll get back to you soon.`);
-        supportForm.reset();
+        const form = document.querySelector('.support-form');
+        const successMessage = document.getElementById('successMessage');
+        document.getElementById('ticketId').textContent = ticketId;
+        
+        form.reset();
+        form.style.display = 'none';
+        successMessage.classList.remove('hidden');
+
+        // Show form again after 5 seconds
+        setTimeout(() => {
+            form.style.display = 'block';
+            successMessage.classList.add('hidden');
+        }, 5000);
     });
 
     // Live chat functionality
     const startChatBtn = document.getElementById('startChatBtn');
-    startChatBtn.addEventListener('click', () => {
-        // In a real application, this would initialize a chat widget
-        alert('Chat feature coming soon! Please use email or phone support for now.');
-    });
-
-    // Logout functionality
-    document.getElementById('logoutBtn').addEventListener('click', () => {
-        sessionStorage.clear();
-        window.location.href = '../../src/index.html';
-    });
+    if (startChatBtn) {
+        startChatBtn.addEventListener('click', () => {
+            alert('Live chat feature coming soon! Please use email or phone support for now.');
+        });
+    }
 });

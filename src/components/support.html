@@ -9,14 +9,17 @@
 </head>
 <body>
     <header>
-        <nav class="navbar">
-            <div class="nav-brand">
-                <img src="../assets/logo.png" alt="PMS Logo" class="nav-logo">
-                <span>Parcel Management System</span>
+        <nav class="top-bar">
+            <div class="nav-links">
+                <a href="customer-dashboard.html">Home</a>
+                <a href="booking-service.html">Booking Service</a>
+                <a href="tracking.html">Tracking</a>
+                <a href="previous-booking.html">Previous Booking</a>
+                <a href="#" class="active">Contact Support</a>
             </div>
-            <div class="nav-user">
-                <span id="username"></span>
-                <button id="logoutBtn" class="btn btn-outline">Logout</button>
+            <div class="user-info">
+                <span id="welcomeUser">Welcome <span id="username"></span></span>
+                <button id="logoutBtn">Logout</button>
             </div>
         </nav>
     </header>
@@ -85,16 +88,50 @@
                 <!-- Contact Support Section -->
                 <section class="contact-section">
                     <h2><i class="fas fa-envelope"></i> Contact Support</h2>
+                    
+                    <!-- Direct Contact Info -->
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div class="contact-details">
+                                <h3>Phone Support</h3>
+                                <p>24/7 Customer Service</p>
+                                <p class="contact-value">1800-123-4567</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div class="contact-details">
+                                <h3>Email Support</h3>
+                                <p>Response within 24 hours</p>
+                                <p class="contact-value">support@pms.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="contact-details">
+                                <h3>Head Office</h3>
+                                <p>Main Branch Address</p>
+                                <p class="contact-value">123 Business Park, Tech City - 123456</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Support Form -->
                     <form id="supportForm" class="support-form">
+                        <h3>Submit a Support Ticket</h3>
                         <div class="form-group">
-                            <label for="subject">Subject</label>
+                            <label for="subject">Subject*</label>
                             <select id="subject" required>
                                 <option value="">Select a subject</option>
                                 <option value="booking">Booking Issue</option>
                                 <option value="delivery">Delivery Problem</option>
                                 <option value="payment">Payment Issue</option>
+                                <option value="damage">Damaged Package</option>
+                                <option value="delay">Delivery Delay</option>
                                 <option value="other">Other</option>
                             </select>
+                            <span class="error" id="subjectError"></span>
                         </div>
 
                         <div class="form-group">

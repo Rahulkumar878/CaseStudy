@@ -23,14 +23,15 @@ document.addEventListener('DOMContentLoaded', () => {
             <a href="booking-service.html">Booking Service</a>
             <a href="#" class="active">Tracking</a>
             <a href="previous-booking.html">Previous Booking</a>
-            <a href="customer-support.html">Contact Support</a>
+            <a href="support.html">Contact Support</a>
         `;
     }
 
     // Add sample booking data if no bookings exist
     if (!sessionStorage.getItem('allBookings')) {
+        const currentTimestamp = Date.now();
         const sampleBookings = [{
-            bookingId: "123456789012",
+            bookingId: currentTimestamp.toString().slice(-12).padStart(12, '0'),
             trackingStatus: "In Transit",
             pickupDate: "2025-05-26",
             deliverySpeed: "express",

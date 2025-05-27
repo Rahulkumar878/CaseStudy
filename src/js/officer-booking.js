@@ -124,8 +124,9 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         if (!validateForm()) return;
 
-        // Generate random booking ID (12 digits)
-        const bookingId = Math.floor(Math.random() * 1000000000000).toString().padStart(12, '0');
+        // Generate booking ID (12 digits numeric only)
+        const timestamp = Date.now();
+        const bookingId = timestamp.toString().slice(-12).padStart(12, '0');
 
         // Store booking details in session storage
         const bookingDetails = {

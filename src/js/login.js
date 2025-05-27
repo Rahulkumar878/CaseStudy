@@ -81,6 +81,18 @@ document.addEventListener('DOMContentLoaded', () => {
             sessionStorage.setItem('userId', userId);
             sessionStorage.setItem('isLoggedIn', 'true');
 
+            // For customers, load their stored information
+            if (userType === 'customer') {
+                const users = JSON.parse(localStorage.getItem('users') || '{}');
+                const userInfo = users[userId];
+                if (userInfo) {
+                    sessionStorage.setItem('userName', userInfo.customerName);
+                    sessionStorage.setItem('userEmail', userInfo.email);
+                    sessionStorage.setItem('userAddress', userInfo.address);
+                    sessionStorage.setItem('userContact', userInfo.mobile);
+                }
+            }
+
             // Initialize bookings array if it doesn't exist
             if (!sessionStorage.getItem('bookings')) {
                 sessionStorage.setItem('bookings', JSON.stringify([]));

@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <a href="#" class="active">Booking Service</a>
             <a href="tracking.html">Tracking</a>
             <a href="previous-booking.html">Previous Booking</a>
-            <a href="customer-support.html">Contact Support</a>
+            <a href="support.html">Contact Support</a>
         `;
     }
 
@@ -44,9 +44,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Pre-populate sender information for customer
     const currentUser = sessionStorage.getItem('userId');
     if (sessionStorage.getItem('userType') === 'customer') {
-        document.getElementById('senderName').value = currentUser;
-        document.getElementById('senderAddress').value = sessionStorage.getItem('userAddress') || '';
-        document.getElementById('senderContact').value = sessionStorage.getItem('userContact') || '';
+        const userName = sessionStorage.getItem('userName') || currentUser;
+        const userAddress = sessionStorage.getItem('userAddress');
+        const userContact = sessionStorage.getItem('userContact');
+        
+        document.getElementById('senderName').value = userName;
+        document.getElementById('senderAddress').value = userAddress || '';
+        document.getElementById('senderContact').value = userContact || '';
     }
 
     // Set minimum date for pickup to tomorrow
@@ -151,9 +155,9 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         if (!validateForm()) return;
 
-        // Generate booking ID with PMS prefix and timestamp
+        // Generate booking ID (12 digits numeric only)
         const timestamp = Date.now();
-        const bookingId = 'PMS' + timestamp.toString().slice(-9);
+        const bookingId = timestamp.toString().slice(-12).padStart(12, '0');
 
         // Calculate total amount
         const weight = parseInt(document.getElementById('weight').value);

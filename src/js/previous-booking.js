@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <a href="booking-service.html">Booking Service</a>
             <a href="tracking.html">Tracking</a>
             <a href="#" class="active">Previous Booking</a>
-            <a href="customer-support.html">Contact Support</a>
+            <a href="support.html">Contact Support</a>
         `;
     }
 
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         return [
             {
-                bookingId: "PMS" + Date.now().toString().slice(-9),
+                bookingId: Date.now().toString().slice(-12).padStart(12, '0'),
                 customerId: "CUST001",
                 trackingStatus: "In Transit",
                 pickupDate: today.toISOString().split('T')[0],

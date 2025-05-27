@@ -69,6 +69,19 @@ document.addEventListener('DOMContentLoaded', () => {
             // In a real application, you would make an API call here
             // For demo purposes, we'll simulate a successful registration
             const randomUsername = 'USER' + Math.random().toString(36).substr(2, 6).toUpperCase();
+            
+            // Store user information in localStorage (persists across sessions)
+            const userInfo = {
+                username: randomUsername,
+                customerName: customerName,
+                email: email,
+                address: document.getElementById('address').value,
+                mobile: document.getElementById('mobile').value
+            };
+            const users = JSON.parse(localStorage.getItem('users') || '{}');
+            users[randomUsername] = userInfo;
+            localStorage.setItem('users', JSON.stringify(users));
+
             showSuccess(`
                 <strong>Username:</strong> ${randomUsername}<br>
                 <strong>Customer Name:</strong> ${customerName}<br>
